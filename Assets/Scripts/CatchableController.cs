@@ -25,19 +25,44 @@ public class CatchableController : MonoBehaviour
                 break;
         }
 
-        GetComponent<SpriteRenderer>().color = PlayerEdge.colorPicker[m_color];
+        GetComponentInChildren<SpriteRenderer>().color = PlayerEdge.colorPicker[m_color];
 
+        m_particleSystem = GetComponentInChildren<ParticleSystem>();
+
+        var ma = m_particleSystem.main;
+        ma.startColor = PlayerEdge.colorPicker[m_color];
+
+
+
+        m_animation = GetComponent<Animation>();
+
+        m_catched = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(0f, -m_speed * Time.deltaTime, 0f);
+        if(!m_catched)
+            transform.Translate(0f, -m_speed * Time.deltaTime, 0f);
+    }
+
+    private void Catched()
+    {
+        m_catched = true;
+        m_animation.Play();
+        m_particleSystem.Play();
+    }
+
+    private void RemoveCatchable()
+    {
+        Destroy(gameObject);
     }
 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (m_catched)
+            return;
         if (collision.gameObject.tag == "Player")
         {
             bool correct = collision.gameObject.GetComponentInParent<PlayerController>().CatchColor(m_color);
@@ -45,18 +70,32 @@ public class CatchableController : MonoBehaviour
             if(correct)
             {
                 // this happens when the color was correct
-                Destroy(gameObject);
+                GameController._instance.CorrectColorCatched();
+                Catched();
             }
             else
             {
                 // this happens when the color was wrong
-                Destroy(gameObject);
+                GameController._instance.WrongColorCatched();
+                Catched();
             }
 
 
+        }
+        else if(collision.gameObject.tag == "Finish")
+        {
+            // this happens when the color has not been catched
+            GameController._instance.ColorNotCatched();
+            Catched();
         }
     }
 
     public float m_speed;
     private EdgeColor m_color;
+
+    private Animation m_animation;
+
+    private ParticleSystem m_particleSystem;
+
+    private bool m_catched;
 }

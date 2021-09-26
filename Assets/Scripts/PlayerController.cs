@@ -15,9 +15,6 @@ public enum EdgeColor
 public class PlayerController : MonoBehaviour
 {
 
-    public UnityEvent correctColorCatched;
-    public UnityEvent wrongColorCatched;
-
 
     // Start is called before the first frame update
     void Awake()
@@ -199,14 +196,12 @@ public class PlayerController : MonoBehaviour
     {
         if(color == m_currentTopFacingEdge.EdgeColor)
         {
-            print("Caught color: " + color);
-            correctColorCatched.Invoke();
+            //print("Caught color: " + color);
             return true;
         }
         else
         {
-            print("Caught color: " + color + " but top was " + m_currentTopFacingEdge.EdgeColor);
-            wrongColorCatched.Invoke();
+            //print("Caught color: " + color + " but top was " + m_currentTopFacingEdge.EdgeColor);
             m_currentTopFacingEdge.EdgeColor = color;
             return false;
         }
