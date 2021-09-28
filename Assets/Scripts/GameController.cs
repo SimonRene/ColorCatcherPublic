@@ -39,6 +39,9 @@ public class GameController : MonoBehaviour
 
         m_lostGame = false;
 
+        m_correctInRow = 0;
+        m_neededCorrectRow = 3;
+
         SetColorSpawner();
     }
 
@@ -87,13 +90,16 @@ public class GameController : MonoBehaviour
     public void Score()
     {
         ++m_points;
+        if (++m_correctInRow > m_neededCorrectRow)
+            m_correctInRow = 1;
 
         pointsChanged.Invoke();
     }
 
-    public void Mistake()
+    public void Mistake(int penalty)
     {
-        --m_points;
+        m_points -= 2;
+        m_correctInRow = 0;
 
         pointsChanged.Invoke();
     }
@@ -107,18 +113,20 @@ public class GameController : MonoBehaviour
 
     public void WrongColorCatched()
     {
-        Mistake();
+        Mistake(2);
         wrongColorCatched.Invoke();
     }
 
     public void ColorNotCatched()
     {
-        Mistake();
+        Mistake(1);
         colorNotCatched.Invoke();
     }
 
     public void GameLost()
     {
+        m_lostGame = true;
+
         int highscore = PlayerPrefs.GetInt("Highscore");
         if (m_points > highscore)
         {
@@ -159,8 +167,14 @@ public class GameController : MonoBehaviour
     float m_timeSinceLastCatchable;
     public float m_catchableInterval;
 
+    [HideInInspector]
     public bool m_newHighscore;
     private bool m_lostGame;
+
+    [HideInInspector]
+    public int m_correctInRow;
+    [HideInInspector]
+    public int m_neededCorrectRow; // correct catched needed to move the machine up again
 
     public UnityEvent correctColorCatched;
     public UnityEvent wrongColorCatched;

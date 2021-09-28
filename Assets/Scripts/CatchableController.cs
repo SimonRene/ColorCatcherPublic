@@ -63,6 +63,7 @@ public class CatchableController : MonoBehaviour
     {
         if (m_catched)
             return;
+
         if (collision.gameObject.tag == "Player")
         {
             bool correct = collision.gameObject.GetComponentInParent<PlayerController>().CatchColor(m_color);

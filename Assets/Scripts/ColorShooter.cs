@@ -21,7 +21,13 @@ public class ColorShooter : MonoBehaviour
         m_maximumDown = 0f;
         m_downStepDistance = (transform.localPosition.y - m_maximumDown) / m_downSteps;
 
+        m_movingUp = false;
 
+    }
+
+    private void Start()
+    {
+        UpdateCorrectRow();
     }
 
     // Update is called once per frame
@@ -68,10 +74,32 @@ public class ColorShooter : MonoBehaviour
 
             transform.localPosition = pos;
         }
+        else if(m_movingUp)
+        {
+            float movementUp = m_downVelocity * Time.deltaTime;
+            float distanceToTarget = m_upTarget - transform.localPosition.y;
+
+            var pos = transform.localPosition;
+
+            if (Mathf.Abs(movementUp) < Mathf.Abs(distanceToTarget))
+            {
+                pos.y += movementUp;
+            }
+            else
+            {
+                pos.y += distanceToTarget;
+                m_movingUp = false;
+            }
+
+            transform.localPosition = pos;
+        }
     }
 
     public void MoveDown()
     {
+        if (m_movingUp)
+            return;
+
         if (++m_stepsDownMade > m_downSteps)
         {
             m_downTarget = transform.localPosition.y - m_downStepDistance*3;
@@ -84,12 +112,47 @@ public class ColorShooter : MonoBehaviour
             m_movingDown = true;
     }
 
+    public void MoveUp()
+    {
+
+        if(m_stepsDownMade > 0)
+        {
+            --m_stepsDownMade;
+            m_upTarget = transform.localPosition.y + m_downStepDistance;
+            m_movingUp = true;
+        }
+    }
+
     private void MoveZ(float offsetZ)
     {
         Vector3 pos = transform.localPosition;
         pos.z += offsetZ;
         transform.localPosition = pos;
     }
+
+
+    public void UpdateCorrectRow()
+    {
+
+        for(int i = 0; i < m_correctRowIndicators.Length; ++i)
+        {
+            if(i < GameController._instance.m_correctInRow)
+            {
+                m_correctRowIndicators[i].GetComponent<Renderer>().material = m_greenIndicator;
+            }
+            else
+            {
+                m_correctRowIndicators[i].GetComponent<Renderer>().material = m_redIndicator;
+            }
+        }
+
+
+        if (GameController._instance.m_correctInRow == GameController._instance.m_neededCorrectRow)
+        {
+            MoveUp();
+        }
+    }
+
 
     private void LostGame()
     {
@@ -140,6 +203,17 @@ public class ColorShooter : MonoBehaviour
 
     private float m_downTarget;
 
+    // up movement
+
+    private bool m_movingUp;
+    private float m_upTarget;
+
+
+    
+
+    public GameObject[] m_correctRowIndicators;
+
+    public Material m_greenIndicator, m_redIndicator;
 
     private Vector3 m_originalPosition;
 }

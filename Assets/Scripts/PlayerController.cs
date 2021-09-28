@@ -184,6 +184,48 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public void Stamp()
+    {
+        m_subAnimation.Play();
+    }
+
+    // changes the color of the bottom player edge to the color the Player has been stamped on
+    public void HasStamped()
+    {
+        float posX = transform.position.x;
+
+
+        if(posX >= 0f)
+        {
+            if(posX > 2.1f)
+            {
+                // GREEN
+                ChangeEdgeColor(2, EdgeColor.GREEN);
+            }
+            else
+            {
+                // YELLOW
+                ChangeEdgeColor(2, EdgeColor.YELLOW);
+            }
+        }
+        else
+        {
+            if (posX < -2.1f)
+            {
+                // RED
+                ChangeEdgeColor(2, EdgeColor.RED);
+            }
+            else
+            {
+                // BLUE
+                ChangeEdgeColor(2, EdgeColor.BLUE);
+            }
+        }
+
+
+        print("Stamped");
+    }
+
 
     public void Move(InputAction.CallbackContext context)
     {
@@ -219,6 +261,7 @@ public class PlayerController : MonoBehaviour
     public Transform m_playerRotationTransform;
 
     public Animation m_animation;
+    public Animation m_subAnimation;
 
     public float m_movementSpeed;
 
