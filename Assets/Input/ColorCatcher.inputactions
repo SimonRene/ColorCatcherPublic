@@ -9,7 +9,7 @@
                     "name": "Move",
                     "type": "Value",
                     "id": "fe9a77c3-1620-4a0b-a0d6-3e326c8185de",
-                    "expectedControlType": "Vector2",
+                    "expectedControlType": "Double",
                     "processors": "",
                     "interactions": ""
                 },
@@ -34,6 +34,38 @@
                     "type": "Button",
                     "id": "94fa15bd-99d1-482e-abd1-922c2ea2c246",
                     "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Rotation",
+                    "type": "Value",
+                    "id": "7220377e-a3c4-4a46-a4e4-c291c823c880",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "TouchPress",
+                    "type": "Button",
+                    "id": "c9d866ea-e557-4734-8cbd-634d759d4870",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "TouchPosition",
+                    "type": "Value",
+                    "id": "1e18cb4c-b66f-47ba-bd14-b1c122764c98",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "GyroTest",
+                    "type": "Value",
+                    "id": "c36dfa77-5c6c-4fba-8e3f-248d238f99f3",
+                    "expectedControlType": "Vector3",
                     "processors": "",
                     "interactions": ""
                 }
@@ -144,7 +176,7 @@
                     "path": "<Gyroscope>/angularVelocity/x",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Touch",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -155,7 +187,7 @@
                     "path": "<Gyroscope>/angularVelocity/x",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Touch",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -166,7 +198,7 @@
                     "path": "<Gyroscope>/angularVelocity/x",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Touch",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -177,7 +209,7 @@
                     "path": "<Gyroscope>/angularVelocity/x",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Touch",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -199,7 +231,7 @@
                     "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "RotateLeft",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -210,8 +242,96 @@
                     "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "Stamp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Arrows",
+                    "id": "5655d30f-2763-4c3c-8739-ee0406c2188f",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotation",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "cdd6afab-9537-4926-8841-ab2c4c2d1caf",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Rotation",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "f9663454-a283-42f5-ad4f-9886f5dd5890",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Rotation",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "2c3bbde3-bb37-4839-917f-57c955b34cf5",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Rotation",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "ea5db732-af8b-4014-b318-9869716db90e",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Rotation",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "26ee4adf-6f2e-4ea9-ba5c-5729f69f5e45",
+                    "path": "<Touchscreen>/primaryTouch/press",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "Touch",
+                    "action": "TouchPress",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "35aeadaa-4a89-4faa-8357-d74395831722",
+                    "path": "<Touchscreen>/primaryTouch/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Touch",
+                    "action": "TouchPosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d01724a4-aa60-498b-b748-d9ce4479b928",
+                    "path": "<Gyroscope>/angularVelocity",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Touch",
+                    "action": "GyroTest",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -758,6 +878,11 @@
             "devices": [
                 {
                     "devicePath": "<Touchscreen>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Gyroscope>",
                     "isOptional": false,
                     "isOR": false
                 }

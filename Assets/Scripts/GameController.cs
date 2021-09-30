@@ -12,7 +12,7 @@ public class GameController : MonoBehaviour
     private void Awake()
     {
         _instance = this;
-        
+
         /*
         // check if a instance exists
         if (_instance == null)
@@ -29,6 +29,8 @@ public class GameController : MonoBehaviour
             Destroy(this);
         }
         */
+
+        
 
     }
     
@@ -54,6 +56,36 @@ public class GameController : MonoBehaviour
             SpawnCatchable();
             m_timeSinceLastCatchable = 0f;
         }
+    }
+
+    public void PauseGame()
+    {
+        if(!m_gamePaused)
+        {
+            Debug.Log("PAUSE GAME");
+            Time.timeScale = 0f;
+
+            gamePaused.Invoke();
+
+            m_gamePaused = true;
+
+        }
+        else
+        {
+            Debug.Log("RESUME GAME");
+            Time.timeScale = 1f;
+
+            gameResumed.Invoke();
+            m_gamePaused = false;
+        }
+
+    }
+
+    public void LeaveGame()
+    {
+        Debug.Log("LEAVE GAME");
+        SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+        SceneManager.LoadScene("MainMenue");
     }
 
     private void SetColorSpawner()
@@ -158,7 +190,7 @@ public class GameController : MonoBehaviour
 
     public Transform leftColorSpawn, rightColorSpawn;
 
-    public UnityEvent pointsChanged, gameLost;
+    public UnityEvent pointsChanged, gameLost, gamePaused, gameResumed;
 
     private int m_points;
 
@@ -169,7 +201,7 @@ public class GameController : MonoBehaviour
 
     [HideInInspector]
     public bool m_newHighscore;
-    private bool m_lostGame;
+    private bool m_lostGame, m_gamePaused;
 
     [HideInInspector]
     public int m_correctInRow;

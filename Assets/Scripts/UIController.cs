@@ -10,6 +10,7 @@ public class UIController : MonoBehaviour
     {
         m_gameOverMenue.SetActive(false);
 
+        PauseMenue(false);
         UpdatePoints();
     }
 
@@ -22,7 +23,9 @@ public class UIController : MonoBehaviour
 
     public void UpdatePoints()
     {
-        m_pointsText.text = "Points: " + GameController._instance.Points + "\nHighscore: " + PlayerPrefs.GetInt("Highscore");
+        m_pointsText.text = "Score: " + GameController._instance.Points;
+        
+        m_highscoreText.text = "Highscore: " + PlayerPrefs.GetInt("Highscore");
     }
 
     public void ShowGameOver()
@@ -43,6 +46,11 @@ public class UIController : MonoBehaviour
         }
     }
 
-    public TextMeshProUGUI m_pointsText, m_gameOverPoints, m_gameOverHighscoreText;
-    public GameObject m_gameOverMenue;
+    public void PauseMenue(bool show)
+    {
+        m_pauseMenue.SetActive(show);
+    }
+
+    public TextMeshProUGUI m_pointsText, m_highscoreText, m_gameOverPoints, m_gameOverHighscoreText;
+    public GameObject m_gameOverMenue, m_pauseMenue;
 }

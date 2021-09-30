@@ -38,7 +38,19 @@ public class PlayerController : MonoBehaviour
 
         m_currentTopFacingEdge = m_playerEdges[0];
 
-}
+    }
+
+    private void OnEnable()
+    {
+        InputManager.Instance.OnTouchSwipe += PerformRotation;
+        InputManager.Instance.OnMove += Move;
+    }
+
+    private void OnDisable()
+    {
+        InputManager.Instance.OnTouchSwipe -= PerformRotation;
+        InputManager.Instance.OnMove -= Move;
+    }
 
     // Update is called once per frame
     void Update()
@@ -99,13 +111,13 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public void RotateLeft(InputAction.CallbackContext context)
+    public void RotateLeft()
     {
-        if(!m_isRotating && context.performed) {
+        if(!m_isRotating) {
             m_isRotating = true;
             m_animation.Play("RotateLeft");
         }
-        else if (m_isRotating && context.performed)
+        else if (m_isRotating)
         {
             // saves the desired next rotation direction, to perform it after the current rotation is finished
             m_nextRotation = -1f;
@@ -114,14 +126,14 @@ public class PlayerController : MonoBehaviour
         // TODO: switch the current top facing edge in the middle of the animation !!!
 
     }
-    public void RotateRight(InputAction.CallbackContext context)
+    public void RotateRight()
     {
-        if (!m_isRotating && context.performed)
+        if (!m_isRotating)
         {
             m_isRotating = true;
             m_animation.Play("RotateRight");
         }
-        else if (m_isRotating && context.performed)
+        else if (m_isRotating)
         {
             // saves the desired next rotation direction, to perform it after the current rotation is finished
             m_nextRotation = 1f;
@@ -227,10 +239,47 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public void Move(InputAction.CallbackContext context)
+    public void Move(float value)
     {
-        m_velocityX = context.ReadValue<Vector2>().x;
+        m_velocityX = value;
         
+    }
+
+    public void Rotation(InputAction.CallbackContext context)
+    {
+        if (!context.performed || context.duration > 0f)
+            return;
+
+        
+        
+
+        Vector2 delta = context.ReadValue<Vector2>();
+
+        PerformRotation(delta);
+    }
+
+    private void PerformRotation(Vector2 direction)
+    {
+        
+
+        if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+        {
+            if (direction.x > 0f)
+            {
+                RotateRight();
+            }
+            else if (direction.x < 0f)
+            {
+                RotateLeft();
+            }
+        }
+        else
+        {
+            if (direction.y < 0f)
+            {
+                Stamp();
+            }
+        }
     }
 
 
