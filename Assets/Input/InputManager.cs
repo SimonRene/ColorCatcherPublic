@@ -24,7 +24,6 @@ public class InputManager : Singleton<InputManager>
 
     private float m_maxTouchSwipeDuration = 0.5f;
 
-    private float m_currentMoveVelocity;
 
     private void Awake()
     {
@@ -49,7 +48,9 @@ public class InputManager : Singleton<InputManager>
         ccInput.Player.Move.performed += ctx => Move(ctx);
         ccInput.Player.Move.canceled += ctx => Move(ctx);
 
-        ccInput.Player.GyroTest.performed += ctx => Gyro(ctx);
+        ccInput.Player.AccTest.performed += ctx => Acc(ctx);
+
+
     }
 
     private void StartTouch(InputAction.CallbackContext context)
@@ -104,14 +105,14 @@ public class InputManager : Singleton<InputManager>
         }
     }
 
-    private void Gyro(InputAction.CallbackContext context)
+
+    private void Acc(InputAction.CallbackContext context)
     {
-
-        if(OnMove != null)
+        if (OnMove != null)
         {
-            Vector3 angularVelocity = ccInput.Player.GyroTest.ReadValue<Vector3>();
+            Vector3 angularVelocity = ccInput.Player.AccTest.ReadValue<Vector3>();
 
-            OnMove(-angularVelocity.z);
+            OnMove(angularVelocity.x * 2.4f);
         }
     }
 

@@ -68,6 +68,14 @@
                     "expectedControlType": "Vector3",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "AccTest",
+                    "type": "Value",
+                    "id": "d1b499b4-dcb5-4e09-a513-a24ef1ea70d5",
+                    "expectedControlType": "Vector3",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -332,6 +340,17 @@
                     "processors": "",
                     "groups": "Touch",
                     "action": "GyroTest",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dd41570f-0dd4-4001-bfe4-3dc540d992a3",
+                    "path": "<Accelerometer>/acceleration",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Touch",
+                    "action": "AccTest",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

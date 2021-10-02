@@ -32,8 +32,30 @@ public class GameStarter : MonoBehaviour
         }
 
 
+        if (UnityEngine.InputSystem.Accelerometer.current != null)
+        {
+            InputSystem.EnableDevice(UnityEngine.InputSystem.Accelerometer.current);
+
+            if (UnityEngine.InputSystem.Accelerometer.current.enabled)
+            {
+                textLine.text = "!! ACC AVAILABLE !!";
+
+            }
+            else
+            {
+                textLine.text = "NO ACC AVAILABLE";
+                InputSystem.EnableDevice(UnityEngine.InputSystem.Accelerometer.current);
+            }
+        }
+        else
+        {
+            Debug.LogWarning("NO Accelerometer AVAILABLE");
+        }
+
+
         m_infoMenueOpen = false;
         m_infoMenue.SetActive(false);
+        m_tutorialMenue.SetActive(false);
         m_mainManue.SetActive(true);
     }
 
@@ -87,11 +109,23 @@ public class GameStarter : MonoBehaviour
         }
     }
 
+    public void OpenTutorial()
+    {
+        m_mainManue.SetActive(false);
+        m_tutorialMenue.SetActive(true);
+    }
+
+    public void CloseTutorial()
+    {
+        m_tutorialMenue.SetActive(false);
+        m_mainManue.SetActive(true);
+    }
+
 
     public TextMeshProUGUI textLine;
 
 
-    public GameObject m_mainManue, m_infoMenue;
+    public GameObject m_mainManue, m_infoMenue, m_tutorialMenue;
 
     private bool m_infoMenueOpen;
 }

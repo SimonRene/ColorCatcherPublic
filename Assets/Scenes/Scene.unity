@@ -3481,6 +3481,7 @@ MonoBehaviour:
   m_gameOverHighscoreText: {fileID: 981698592}
   m_gameOverMenue: {fileID: 1218176118}
   m_pauseMenue: {fileID: 286926152}
+  m_pauseButton: {fileID: 824176114}
 --- !u!114 &1303877963
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4270,6 +4271,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  m_minimumCatchableSpeed: 4.4
+  m_maximumCatchableSpeed: 9
+  m_increaseSpeedSteps: 60
 --- !u!4 &1589552021
 Transform:
   m_ObjectHideFlags: 0

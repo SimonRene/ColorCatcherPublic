@@ -44,6 +44,10 @@ public class UIController : MonoBehaviour
             m_gameOverHighscoreText.gameObject.SetActive(false);
             m_gameOverPoints.text = "Score: " + GameController._instance.Points + "\nHigscore: " + PlayerPrefs.GetInt("Highscore");
         }
+
+        m_pauseButton.SetActive(false);
+        m_pointsText.GetComponentInParent<Transform>().gameObject.SetActive(false);
+        m_highscoreText.GetComponentInParent<Transform>().gameObject.SetActive(false);
     }
 
     public void PauseMenue(bool show)
@@ -52,5 +56,5 @@ public class UIController : MonoBehaviour
     }
 
     public TextMeshProUGUI m_pointsText, m_highscoreText, m_gameOverPoints, m_gameOverHighscoreText;
-    public GameObject m_gameOverMenue, m_pauseMenue;
+    public GameObject m_gameOverMenue, m_pauseMenue, m_pauseButton;
 }

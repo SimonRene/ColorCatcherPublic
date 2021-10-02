@@ -117,6 +117,29 @@ public class GameController : MonoBehaviour
         //var catchablePosition = catchable.transform.position;
         //catchablePosition.y = 7.7f;
         catchable.transform.position = spawnPosition;
+
+
+
+        // TODO: Set speed
+
+        float catchableSpeed = m_minimumCatchableSpeed;
+        float speedRange = m_maximumCatchableSpeed - m_minimumCatchableSpeed;
+        float speedChange = 0f;
+
+        if (m_points>0 && m_points <= m_increaseSpeedSteps)
+        {
+            speedChange = (speedRange / (float)m_increaseSpeedSteps) * m_points;
+        }
+        else if(m_points > m_increaseSpeedSteps)
+        {
+            speedChange = speedRange;
+        }
+
+        catchableSpeed += speedChange;
+
+        catchable.GetComponent<CatchableController>().m_speed = catchableSpeed;
+
+        print("SPEED: " + catchableSpeed);
     }
 
     public void Score()
@@ -211,5 +234,9 @@ public class GameController : MonoBehaviour
     public UnityEvent correctColorCatched;
     public UnityEvent wrongColorCatched;
     public UnityEvent colorNotCatched;
+
+
+    public float m_minimumCatchableSpeed, m_maximumCatchableSpeed;
+    public int m_increaseSpeedSteps;
 
 }

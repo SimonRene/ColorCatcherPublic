@@ -91,6 +91,7 @@ public class CatchableController : MonoBehaviour
         }
     }
 
+    [HideInInspector]
     public float m_speed;
     private EdgeColor m_color;
 

@@ -81,6 +81,14 @@ public class @ColorCatcherInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector3"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""AccTest"",
+                    ""type"": ""Value"",
+                    ""id"": ""d1b499b4-dcb5-4e09-a513-a24ef1ea70d5"",
+                    ""expectedControlType"": ""Vector3"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -345,6 +353,17 @@ public class @ColorCatcherInput : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Touch"",
                     ""action"": ""GyroTest"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dd41570f-0dd4-4001-bfe4-3dc540d992a3"",
+                    ""path"": ""<Accelerometer>/acceleration"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Touch"",
+                    ""action"": ""AccTest"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -935,6 +954,7 @@ public class @ColorCatcherInput : IInputActionCollection, IDisposable
         m_Player_TouchPress = m_Player.FindAction("TouchPress", throwIfNotFound: true);
         m_Player_TouchPosition = m_Player.FindAction("TouchPosition", throwIfNotFound: true);
         m_Player_GyroTest = m_Player.FindAction("GyroTest", throwIfNotFound: true);
+        m_Player_AccTest = m_Player.FindAction("AccTest", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1004,6 +1024,7 @@ public class @ColorCatcherInput : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_TouchPress;
     private readonly InputAction m_Player_TouchPosition;
     private readonly InputAction m_Player_GyroTest;
+    private readonly InputAction m_Player_AccTest;
     public struct PlayerActions
     {
         private @ColorCatcherInput m_Wrapper;
@@ -1016,6 +1037,7 @@ public class @ColorCatcherInput : IInputActionCollection, IDisposable
         public InputAction @TouchPress => m_Wrapper.m_Player_TouchPress;
         public InputAction @TouchPosition => m_Wrapper.m_Player_TouchPosition;
         public InputAction @GyroTest => m_Wrapper.m_Player_GyroTest;
+        public InputAction @AccTest => m_Wrapper.m_Player_AccTest;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1049,6 +1071,9 @@ public class @ColorCatcherInput : IInputActionCollection, IDisposable
                 @GyroTest.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGyroTest;
                 @GyroTest.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGyroTest;
                 @GyroTest.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGyroTest;
+                @AccTest.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAccTest;
+                @AccTest.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAccTest;
+                @AccTest.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAccTest;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1077,6 +1102,9 @@ public class @ColorCatcherInput : IInputActionCollection, IDisposable
                 @GyroTest.started += instance.OnGyroTest;
                 @GyroTest.performed += instance.OnGyroTest;
                 @GyroTest.canceled += instance.OnGyroTest;
+                @AccTest.started += instance.OnAccTest;
+                @AccTest.performed += instance.OnAccTest;
+                @AccTest.canceled += instance.OnAccTest;
             }
         }
     }
@@ -1241,6 +1269,7 @@ public class @ColorCatcherInput : IInputActionCollection, IDisposable
         void OnTouchPress(InputAction.CallbackContext context);
         void OnTouchPosition(InputAction.CallbackContext context);
         void OnGyroTest(InputAction.CallbackContext context);
+        void OnAccTest(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
